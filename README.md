@@ -3,7 +3,7 @@
 # ImageFX
 
 
-Powered Metal through [PixelKit](https://github.com/hexagons/pixelkit)
+Powered by Metal through [PixelKit](https://github.com/hexagons/pixelkit)
 
 
 ## Install
