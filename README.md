@@ -4,6 +4,18 @@
 Powered by [PixelKit](https://github.com/hexagons/pixelkit) and Metal
 
 
+## Install
+
+~~~~swift
+.package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.1")
+~~~~
+
+~~~~swift
+fxMetalLib(url: URL(fileURLWithPath: "/path/to/PixelKitShaders-macOS.metallib"))
+~~~~
+
+You can find the Metal library [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs)
+
 ## Effects
 
 <img src="https://github.com/hexagons/ImageFX/blob/master/Assets/in.jpg?raw=true" width="128"/>
