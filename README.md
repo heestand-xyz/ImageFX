@@ -1,4 +1,4 @@
-<img style="border-radius: 10px;" src="https://github.com/hexagons/ImageFX/blob/master/Assets/banner.png?raw=true" width="256"/>
+<img src="https://github.com/hexagons/ImageFX/blob/master/Assets/banner.png?raw=true" width="256"/>
 
 # ImageFX
 
