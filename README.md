@@ -10,11 +10,19 @@ Powered by [PixelKit](https://github.com/hexagons/pixelkit) and Metal
 .package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.1")
 ~~~~
 
+
+## Setup
+
 ~~~~swift
+#if os(iOS)
+fxMetalLib(url: Bundle.main.url(forResource: "PixelKitShaders-iOS", withExtension: "metallib")!)
+#elseif os(macOS)
 fxMetalLib(url: URL(fileURLWithPath: "/path/to/PixelKitShaders-macOS.metallib"))
+#endif
 ~~~~
 
 You can find the Metal library [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs)
+
 
 ## Effects
 
