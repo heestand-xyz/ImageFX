@@ -8,12 +8,13 @@ Powered by Metal through [PixelKit](https://github.com/hexagons/pixelkit)
 
 ## Install
 
+### Swift Package
+
 ~~~~swift
-.package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.1")
+.package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.2")
 ~~~~
 
-
-## Setup
+Important when using the Swift Package, link the metal library by calling `fxMetalLib(url:)`, before using any effects: 
 
 ~~~~swift
 #if os(iOS)
@@ -24,6 +25,12 @@ fxMetalLib(url: URL(fileURLWithPath: "/path/to/PixelKitShaders-macOS.metallib"))
 ~~~~
 
 You can find the latest Metal library from PixelKit [here](https://github.com/hexagons/PixelKit/tree/master/Resources/Metal%20Libs).
+
+### Cocoapods
+
+~~~ruby
+pod 'ImageFX', '~> 0.1.2'
+~~~
 
 
 ## Effects
