@@ -19,7 +19,7 @@ var didSetup: Bool = false
 var didSetLib: Bool = false
 
 func setup() {
-    guard didSetLib else { return }
+//    guard didSetLib else { return }
     guard !didSetup else { return }
     frameLoopRenderThread = .background
     PixelKit.main.render.engine.renderMode = .manual
@@ -43,10 +43,11 @@ public func fxMetalLib(url: URL) {
 }
 
 func fx(_ image: _Image, edit: (ImagePIX) -> (PIX & NODEOut)) -> _Image {
-    #if DEBUG && os(macOS)
-    setLib(url: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Resources/Metal Libs/PixelKitShaders-macOS.metallib"))
-    #endif
-    guard didSetup else { fatalError("please call fxMetalLib(url:)") }
+    setup()
+//    #if DEBUG && os(macOS)
+//    setLib(url: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Resources/Metal Libs/PixelKitShaders-macOS.metallib"))
+//    #endif
+//    guard didSetup else { fatalError("please call fxMetalLib(url:)") }
     let imagePix = ImagePIX()
     imagePix.image = image
     let editPix = edit(imagePix)

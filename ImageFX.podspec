@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "ImageFX"
-  spec.version      = "0.1.1"
+  spec.version      = "0.1.2"
 
   spec.summary      = "Image Effects"
   spec.description  = <<-DESC
