@@ -1,13 +1,13 @@
 PODS:
   - LiveValues (1.1.7)
-  - PixelKit (1.0.1):
+  - PixelKit (1.0.2):
     - LiveValues (~> 1.1.7)
-    - RenderKit (~> 0.3.8)
-  - RenderKit (0.3.8):
+    - RenderKit (~> 0.3.9)
+  - RenderKit (0.3.9):
     - LiveValues (~> 1.1.7)
 
 DEPENDENCIES:
-  - PixelKit (~> 1.0.1)
+  - PixelKit (~> 1.0.2)
 
 SPEC REPOS:
   trunk:
@@ -17,9 +17,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   LiveValues: 594cbefcdc010866b1ee38c22e5fc8136a9e88f7
-  PixelKit: 30232060c5a8710d475fe9d70b692ea4d539bf21
-  RenderKit: de2ebf9e383e6577fd9daeea1d31343d3e9d9f39
+  PixelKit: 59edb6565ecdd774a06270945d7aec5b72416513
+  RenderKit: ea0a5adaf6bbe49150a47af99c08271712472f19
 
-PODFILE CHECKSUM: f00224f69a9f5c3dffc40e99249df514e560faa8
+PODFILE CHECKSUM: fb00d17c23d868a165166d24164b41103788c64b
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.1
