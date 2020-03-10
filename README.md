@@ -18,7 +18,7 @@ Powered by Metal through [PixelKit](https://github.com/hexagons/pixelkit)
 .package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.4")
 ~~~~
 
-Important when using the Swift Package, link the metal library by calling `fxMetalLib(url:)`, before using any effects: 
+Important when using the Swift Package, link the metal library by calling `fxMetalLib(url:)` in `application didFinishLaunchingWithOptions` in the `AppDelegate`, before using any effects: 
 
 ~~~~swift
 #if os(iOS)
