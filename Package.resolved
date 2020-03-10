@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/hexagons/PixelKit.git",
         "state": {
           "branch": null,
-          "revision": "38acccfb91942940355072b0f238b974d5e3e25c",
-          "version": "1.0.0"
+          "revision": "ea88d2db6f0ce75382865a82e82ef4e6276115a5",
+          "version": "1.0.1"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/hexagons/RenderKit.git",
         "state": {
           "branch": null,
-          "revision": "e022491753562c6529a8668a4225573849f92ffd",
-          "version": "0.3.6"
+          "revision": "a4030e76bbe1b7bc6924573db48c6f5a2de969d1",
+          "version": "0.3.8"
         }
       }
     ]
