@@ -2,6 +2,10 @@
 
 # ImageFX
 
+[![License](https://img.shields.io/cocoapods/l/ImageFX.svg)](https://github.com/hexagons/ImageFX/blob/master/LICENSE)
+[![Cocoapods](https://img.shields.io/cocoapods/v/ImageFX.svg)](http://cocoapods.org/pods/ImageFX)
+[![Platform](https://img.shields.io/cocoapods/p/ImageFX.svg)](http://cocoapods.org/pods/ImageFX)
+<img src="https://img.shields.io/badge/in-swift5.0-orange.svg">
 
 Powered by Metal through [PixelKit](https://github.com/hexagons/pixelkit)
 
