@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "ImageFX"
-  spec.version      = "0.1.3"
+  spec.version      = "0.1.4"
 
   spec.summary      = "Image Effects"
   spec.description  = <<-DESC
@@ -27,7 +27,7 @@ Pod::Spec.new do |spec|
   spec.source_files  = "Sources/ImageFX", "Sources/ImageFX/**/*.swift"
 	
   spec.dependency 'LiveValues', '~> 1.1.7'
-  spec.dependency 'RenderKit', '~> 0.3.8'
-  spec.dependency 'PixelKit', '~> 1.0.1'
+  spec.dependency 'RenderKit', '~> 0.3.9'
+  spec.dependency 'PixelKit', '~> 1.0.2'
 
 end

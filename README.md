@@ -11,7 +11,7 @@ Powered by Metal through [PixelKit](https://github.com/hexagons/pixelkit)
 ### Swift Package
 
 ~~~~swift
-.package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.3")
+.package(url: "https://github.com/hexagons/ImageFX.git", from: "0.1.4")
 ~~~~
 
 Important when using the Swift Package, link the metal library by calling `fxMetalLib(url:)`, before using any effects: 
@@ -29,7 +29,7 @@ You can find the latest Metal library from PixelKit [here](https://github.com/he
 ### Cocoapods
 
 ~~~ruby
-pod 'ImageFX', '~> 0.1.3'
+pod 'ImageFX', '~> 0.1.4'
 ~~~
 
 

@@ -30,20 +30,26 @@ func setup() {
     didSetup = true
 }
 
-func setLib(url: URL) {
-    guard !didSetLib else { return }
-    guard FileManager.default.fileExists(atPath: url.path) else { return }
+func setLib(url: URL) -> Bool {
+    guard !didSetLib else { return false }
+    guard FileManager.default.fileExists(atPath: url.path) else { return false }
     pixelKitMetalLibURL = url
     didSetLib = true
     setup()
+    return true
 }
 
 public func fxMetalLib(url: URL) {
-    setLib(url: url)
+    if setLib(url: url) {
+        print("New FX Metal Lib Linked")
+    }
 }
 
 func fx(_ image: _Image, edit: (ImagePIX) -> (PIX & NODEOut)) -> _Image {
-    setup()
+    if !didSetup {
+        print("note, if using swiftpm, call fxMetalLib(url:) first. this is auto for pods.")
+        setup()
+    }
 //    #if DEBUG && os(macOS)
 //    setLib(url: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Resources/Metal Libs/PixelKitShaders-macOS.metallib"))
 //    #endif
