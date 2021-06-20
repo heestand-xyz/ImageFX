@@ -18,6 +18,10 @@ Powered by Metal with [PixelKit](https://github.com/heestand-xyz/pixelkit)
 
 <img src="https://github.com/heestand-xyz/ImageFX/blob/main/Assets/in.jpg?raw=true" width="128"/>
 
+```swift
+let image: UIImage = UIImage(named: "Kite")!
+```
+
 ### Blur
 <img src="https://github.com/heestand-xyz/ImageFX/blob/main/Assets/fx/out_blur.jpg?raw=true" width="128"/>
 
