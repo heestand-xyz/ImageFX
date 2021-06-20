@@ -128,16 +128,16 @@ let fxImage: UIImage = try async image.fxSepia(color: .orange)
 <img src="https://github.com/heestand-xyz/ImageFX/blob/main/Assets/fx/out_range.jpg?raw=true" width="128"/>
 
 ```swift
-let fxImage: UIImage = try async image.fxRange(inLow: 0.0, inHigh: 1.0, outLow: 0.0, outHigh: 0.5)
-let fxImage: UIImage = try async image.fxRange(inLow: .black, inHigh: .white, outLow: .black, outHigh: .gray)
+let fxImageA: UIImage = try async image.fxRange(inLow: 0.0, inHigh: 1.0, outLow: 0.0, outHigh: 0.5)
+let fxImageB: UIImage = try async image.fxRange(inLow: .black, inHigh: .white, outLow: .black, outHigh: .gray)
 ```
 
 ### Saturation
 <img src="https://github.com/heestand-xyz/ImageFX/blob/main/Assets/fx/out_saturation.jpg?raw=true" width="128"/>
 
 ```swift
-let fxImage: UIImage = try async image.fxSaturation(0.5)
-let fxImage: UIImage = try async image.fxMonochrome()
+let fxImageA: UIImage = try async image.fxSaturation(0.5)
+let fxImageB: UIImage = try async image.fxMonochrome()
 ```
 
 ### Hue
