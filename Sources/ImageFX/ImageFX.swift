@@ -24,7 +24,11 @@ func setup() {
     didSetup = true
 }
 
-func fx(_ image: _Image, edit: (ImagePIX) -> (PIX & NODEOut)) -> _Image {
+enum FXImageError: Error {
+    case imageRenderNotAvalible
+}
+
+func fx(_ image: _Image, edit: (ImagePIX) -> (PIX & NODEOut)) async throws -> _Image {
     
     if !didSetup {
         setup()
@@ -32,120 +36,105 @@ func fx(_ image: _Image, edit: (ImagePIX) -> (PIX & NODEOut)) -> _Image {
     
     let imagePix = ImagePIX()
     imagePix.image = image
+    try await imagePix.manuallyRender()
     
     let editPix = edit(imagePix)
+    try await editPix.manuallyRender()
+    guard let editImage: _Image = editPix.renderedImage else {
+        throw FXImageError.imageRenderNotAvalible
+    }
     
-    return render(pix: editPix)
-}
-
-func render(pix: PIX) -> _Image {
-    var outImg: _Image?
-    let group = DispatchGroup()
-    group.enter()
-    pix.manuallyRender { result in
-        switch result {
-        case .success:
-            outImg = pix.renderedImage
-        case .failure(let error):
-            print("ImageFX Render Failed:", error)
-        }
-        group.leave()
-    }
-    group.wait()
-    guard let img: _Image = outImg else {
-        fatalError("fx render failed")
-    }
-    return img
+    return editImage
 }
 
 public extension _Image {
     
-    func fxBlur(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixBlur(value) }
+    func fxBlur(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixBlur(value) }
     }
     
-    func fxRainbowBlur(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixRainbowBlur(value) }
+    func fxRainbowBlur(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixRainbowBlur(value) }
     }
     
-    func fxEdge(_ value: CGFloat = 10) -> _Image {
-        fx(self) { $0.pixEdge(value) }
+    func fxEdge(_ value: CGFloat = 10) async throws -> _Image {
+        try await fx(self) { $0.pixEdge(value) }
     }
     
-    func fxClamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> _Image {
-        fx(self) { $0.pixClamp(low: low, high: high) }
+    func fxClamp(low: CGFloat = 0.0, high: CGFloat = 1.0) async throws -> _Image {
+        try await fx(self) { $0.pixClamp(low: low, high: high) }
     }
     
-    func fxKaleidoscope(divisions: Int = 12, mirror: Bool = true) -> _Image {
-        fx(self) { $0.pixKaleidoscope(divisions: divisions, mirror: mirror) }
+    func fxKaleidoscope(divisions: Int = 12, mirror: Bool = true) async throws -> _Image {
+        try await fx(self) { $0.pixKaleidoscope(divisions: divisions, mirror: mirror) }
     }
     
-    func fxBrightness(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixBrightness(value) }
+    func fxBrightness(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixBrightness(value) }
     }
     
-    func fxDarkness(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixDarkness(value) }
+    func fxDarkness(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixDarkness(value) }
     }
     
-    func fxContrast(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixContrast(value) }
+    func fxContrast(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixContrast(value) }
     }
     
-    func fxGamma(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixGamma(value) }
+    func fxGamma(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixGamma(value) }
     }
     
-    func fxInvert() -> _Image {
-        fx(self) { $0.pixInvert() }
+    func fxInvert() async throws -> _Image {
+        try await fx(self) { $0.pixInvert() }
     }
     
-    func fxOpacity(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixOpacity(value) }
+    func fxOpacity(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixOpacity(value) }
     }
     
-    func fxQuantize(fraction: CGFloat = 0.1) -> _Image {
-        fx(self) { $0.pixQuantize(fraction) }
+    func fxQuantize(fraction: CGFloat = 0.1) async throws -> _Image {
+        try await fx(self) { $0.pixQuantize(fraction) }
     }
     
-    func fxSharpen(_ value: CGFloat = 2.0) -> _Image {
-        fx(self) { $0.pixSharpen(value) }
+    func fxSharpen(_ value: CGFloat = 2.0) async throws -> _Image {
+        try await fx(self) { $0.pixSharpen(value) }
     }
     
-    func fxSlope(_ value: CGFloat = 1.0) -> _Image {
-        fx(self) { $0.pixSlope(value) }
+    func fxSlope(_ value: CGFloat = 1.0) async throws -> _Image {
+        try await fx(self) { $0.pixSlope(value) }
     }
     
-    func fxThreshold(_ value: CGFloat = 0.5) -> _Image {
-        fx(self) { $0.pixThreshold(value) }
+    func fxThreshold(_ value: CGFloat = 0.5) async throws -> _Image {
+        try await fx(self) { $0.pixThreshold(value) }
     }
     
-    func fxTwirl(_ value: CGFloat = 2.0) -> _Image {
-        fx(self) { $0.pixTwirl(value) }
+    func fxTwirl(_ value: CGFloat = 2.0) async throws -> _Image {
+        try await fx(self) { $0.pixTwirl(value) }
     }
     
-    func fxRange(inLow: _Color = .black, inHigh: _Color = .white, outLow: _Color = .black, outHigh: _Color = .white) -> _Image {
-        fx(self) { $0.pixRange(inLow: PixelColor(inLow), inHigh: PixelColor(inHigh), outLow: PixelColor(outLow), outHigh: PixelColor(outHigh)) }
+    func fxRange(inLow: _Color = .black, inHigh: _Color = .white, outLow: _Color = .black, outHigh: _Color = .white) async throws -> _Image {
+        try await fx(self) { $0.pixRange(inLow: PixelColor(inLow), inHigh: PixelColor(inHigh), outLow: PixelColor(outLow), outHigh: PixelColor(outHigh)) }
     }
     
-    func fxRange(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> _Image {
-        fx(self) { $0.pixRange(inLow: inLow, inHigh: inHigh, outLow: outLow, outHigh: outHigh) }
+    func fxRange(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) async throws -> _Image {
+        try await fx(self) { $0.pixRange(inLow: inLow, inHigh: inHigh, outLow: outLow, outHigh: outHigh) }
     }
     
-    func fxSaturation(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixSaturation(value) }
+    func fxSaturation(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixSaturation(value) }
     }
     
-    func fxMonochrome() -> _Image {
-        fxSaturation(0.0)
+    func fxMonochrome() async throws -> _Image {
+        try await fxSaturation(0.0)
     }
     
-    func fxHue(_ value: CGFloat) -> _Image {
-        fx(self) { $0.pixHue(value) }
+    func fxHue(_ value: CGFloat) async throws -> _Image {
+        try await fx(self) { $0.pixHue(value) }
     }
     
-    func fxSepia(color: _Color) -> _Image {
-        fx(self) { imagePix in
+    func fxSepia(color: _Color) async throws -> _Image {
+        try await fx(self) { imagePix in
             let sepiaPix = SepiaPIX()
             sepiaPix.input = imagePix
             sepiaPix.color = PixelColor(color)
@@ -153,19 +142,19 @@ public extension _Image {
         }
     }
     
-    func fxFlipX() -> _Image {
-        fx(self) { $0.pixFlipX() }
+    func fxFlipX() async throws -> _Image {
+        try await fx(self) { $0.pixFlipX() }
     }
     
-    func fxFlipY() -> _Image {
-        fx(self) { $0.pixFlipY() }
+    func fxFlipY() async throws -> _Image {
+        try await fx(self) { $0.pixFlipY() }
     }
     
-    func fxFlopLeft() -> _Image {
-        fx(self) { $0.pixFlopLeft() }
+    func fxFlopLeft() async throws -> _Image {
+        try await fx(self) { $0.pixFlopLeft() }
     }
     
-    func fxFlopRight() -> _Image {
-        fx(self) { $0.pixFlopRight() }
+    func fxFlopRight() async throws -> _Image {
+        try await fx(self) { $0.pixFlopRight() }
     }
 }
