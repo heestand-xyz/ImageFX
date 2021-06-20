@@ -2,30 +2,39 @@
   "object": {
     "pins": [
       {
-        "package": "LiveValues",
-        "repositoryURL": "https://github.com/hexagons/LiveValues.git",
+        "package": "PixelColor",
+        "repositoryURL": "https://github.com/heestand-xyz/PixelColor",
         "state": {
           "branch": null,
-          "revision": "330b193cf1aca726501a0d69a38e0e89385c64f6",
-          "version": "1.1.7"
+          "revision": "ef2cebc37adcef71843f7d0cac46cce45c2acc40",
+          "version": "1.2.1"
         }
       },
       {
         "package": "PixelKit",
-        "repositoryURL": "https://github.com/hexagons/PixelKit.git",
+        "repositoryURL": "https://github.com/hexagons/PixelKit",
         "state": {
-          "branch": null,
-          "revision": "2d519379c1826ece1eb2cd080ed3e4092e58e7a1",
-          "version": "1.0.2"
+          "branch": "lite",
+          "revision": "2bcd3030fe16bd1e78090444cab004d846da101b",
+          "version": null
         }
       },
       {
         "package": "RenderKit",
-        "repositoryURL": "https://github.com/hexagons/RenderKit.git",
+        "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
+        "state": {
+          "branch": "lite",
+          "revision": "2d9489605e08a439cecc18e1da55e31d93257e88",
+          "version": null
+        }
+      },
+      {
+        "package": "Resolution",
+        "repositoryURL": "https://github.com/heestand-xyz/Resolution",
         "state": {
           "branch": null,
-          "revision": "d06b969a499fbce1d1b33defb0268a216ed9778d",
-          "version": "0.3.9"
+          "revision": "a37b4b7a1c04f0ebe980cb083b7b85fe99a0ea52",
+          "version": "1.0.1"
         }
       }
     ]

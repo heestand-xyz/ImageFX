@@ -3,9 +3,9 @@ import Cocoa
 #else
 import UIKit
 #endif
-import LiveValues
 import RenderKit
 import PixelKit
+import PixelColor
 
 #if os(macOS)
 public typealias _Image = NSImage
@@ -16,47 +16,25 @@ public typealias _Color = UIColor
 #endif
 
 var didSetup: Bool = false
-var didSetLib: Bool = false
 
 func setup() {
-//    guard didSetLib else { return }
-    guard !didSetup else { return }
     frameLoopRenderThread = .background
     PixelKit.main.render.engine.renderMode = .manual
     PixelKit.main.disableLogging()
-//    #if DEBUG
-//    PixelKit.main.logDebug()
-//    #endif
     didSetup = true
 }
 
-func setLib(url: URL) -> Bool {
-    guard !didSetLib else { return false }
-    guard FileManager.default.fileExists(atPath: url.path) else { return false }
-    pixelKitMetalLibURL = url
-    didSetLib = true
-    setup()
-    return true
-}
-
-public func fxMetalLib(url: URL) {
-    if setLib(url: url) {
-        print("New FX Metal Lib Linked")
-    }
-}
-
 func fx(_ image: _Image, edit: (ImagePIX) -> (PIX & NODEOut)) -> _Image {
+    
     if !didSetup {
-        print("note, if using swiftpm, call fxMetalLib(url:) first. this is auto for pods.")
         setup()
     }
-//    #if DEBUG && os(macOS)
-//    setLib(url: FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Code/Frameworks/Production/PixelKit/Resources/Metal Libs/PixelKitShaders-macOS.metallib"))
-//    #endif
-//    guard didSetup else { fatalError("please call fxMetalLib(url:)") }
+    
     let imagePix = ImagePIX()
     imagePix.image = image
+    
     let editPix = edit(imagePix)
+    
     return render(pix: editPix)
 }
 
@@ -64,8 +42,13 @@ func render(pix: PIX) -> _Image {
     var outImg: _Image?
     let group = DispatchGroup()
     group.enter()
-    try! PixelKit.main.render.engine.manuallyRender {
-        outImg = pix.renderedImage
+    pix.manuallyRender { result in
+        switch result {
+        case .success:
+            outImg = pix.renderedImage
+        case .failure(let error):
+            print("ImageFX Render Failed:", error)
+        }
         group.leave()
     }
     group.wait()
@@ -78,79 +61,79 @@ func render(pix: PIX) -> _Image {
 public extension _Image {
     
     func fxBlur(_ value: CGFloat) -> _Image {
-        fx(self) { $0._blur(LiveFloat(value)) }
+        fx(self) { $0.pixBlur(value) }
     }
     
     func fxRainbowBlur(_ value: CGFloat) -> _Image {
-        fx(self) { $0._rainbowBlur(LiveFloat(value)) }
+        fx(self) { $0.pixRainbowBlur(value) }
     }
     
     func fxEdge(_ value: CGFloat = 10) -> _Image {
-        fx(self) { $0._edge(LiveFloat(value)) }
+        fx(self) { $0.pixEdge(value) }
     }
     
     func fxClamp(low: CGFloat = 0.0, high: CGFloat = 1.0) -> _Image {
-        fx(self) { $0._clamp(low: LiveFloat(low), high: LiveFloat(high)) }
+        fx(self) { $0.pixClamp(low: low, high: high) }
     }
     
     func fxKaleidoscope(divisions: Int = 12, mirror: Bool = true) -> _Image {
-        fx(self) { $0._kaleidoscope(divisions: LiveInt(divisions), mirror: LiveBool(mirror)) }
+        fx(self) { $0.pixKaleidoscope(divisions: divisions, mirror: mirror) }
     }
     
     func fxBrightness(_ value: CGFloat) -> _Image {
-        fx(self) { $0._brightness(LiveFloat(value)) }
+        fx(self) { $0.pixBrightness(value) }
     }
     
     func fxDarkness(_ value: CGFloat) -> _Image {
-        fx(self) { $0._darkness(LiveFloat(value)) }
+        fx(self) { $0.pixDarkness(value) }
     }
     
     func fxContrast(_ value: CGFloat) -> _Image {
-        fx(self) { $0._contrast(LiveFloat(value)) }
+        fx(self) { $0.pixContrast(value) }
     }
     
     func fxGamma(_ value: CGFloat) -> _Image {
-        fx(self) { $0._gamma(LiveFloat(value)) }
+        fx(self) { $0.pixGamma(value) }
     }
     
     func fxInvert() -> _Image {
-        fx(self) { $0._invert() }
+        fx(self) { $0.pixInvert() }
     }
     
     func fxOpacity(_ value: CGFloat) -> _Image {
-        fx(self) { $0._opacity(LiveFloat(value)) }
+        fx(self) { $0.pixOpacity(value) }
     }
     
     func fxQuantize(fraction: CGFloat = 0.1) -> _Image {
-        fx(self) { $0._quantize(LiveFloat(fraction)) }
+        fx(self) { $0.pixQuantize(fraction) }
     }
     
     func fxSharpen(_ value: CGFloat = 2.0) -> _Image {
-        fx(self) { $0._sharpen(LiveFloat(value)) }
+        fx(self) { $0.pixSharpen(value) }
     }
     
     func fxSlope(_ value: CGFloat = 1.0) -> _Image {
-        fx(self) { $0._slope(LiveFloat(value)) }
+        fx(self) { $0.pixSlope(value) }
     }
     
     func fxThreshold(_ value: CGFloat = 0.5) -> _Image {
-        fx(self) { $0._threshold(LiveFloat(value)) }
+        fx(self) { $0.pixThreshold(value) }
     }
     
     func fxTwirl(_ value: CGFloat = 2.0) -> _Image {
-        fx(self) { $0._twirl(LiveFloat(value)) }
+        fx(self) { $0.pixTwirl(value) }
     }
     
     func fxRange(inLow: _Color = .black, inHigh: _Color = .white, outLow: _Color = .black, outHigh: _Color = .white) -> _Image {
-        fx(self) { $0._range(inLow: LiveColor(inLow), inHigh: LiveColor(inHigh), outLow: LiveColor(outLow), outHigh: LiveColor(outHigh)) }
+        fx(self) { $0.pixRange(inLow: PixelColor(inLow), inHigh: PixelColor(inHigh), outLow: PixelColor(outLow), outHigh: PixelColor(outHigh)) }
     }
     
     func fxRange(inLow: CGFloat = 0.0, inHigh: CGFloat = 1.0, outLow: CGFloat = 0.0, outHigh: CGFloat = 1.0) -> _Image {
-        fx(self) { $0._range(inLow: LiveFloat(inLow), inHigh: LiveFloat(inHigh), outLow: LiveFloat(outLow), outHigh: LiveFloat(outHigh)) }
+        fx(self) { $0.pixRange(inLow: inLow, inHigh: inHigh, outLow: outLow, outHigh: outHigh) }
     }
     
     func fxSaturation(_ value: CGFloat) -> _Image {
-        fx(self) { $0._saturation(LiveFloat(value)) }
+        fx(self) { $0.pixSaturation(value) }
     }
     
     func fxMonochrome() -> _Image {
@@ -158,32 +141,31 @@ public extension _Image {
     }
     
     func fxHue(_ value: CGFloat) -> _Image {
-        fx(self) { $0._hue(LiveFloat(value)) }
+        fx(self) { $0.pixHue(value) }
     }
     
     func fxSepia(color: _Color) -> _Image {
         fx(self) { imagePix in
             let sepiaPix = SepiaPIX()
             sepiaPix.input = imagePix
-            sepiaPix.color = LiveColor(color)
+            sepiaPix.color = PixelColor(color)
             return sepiaPix
         }
     }
     
     func fxFlipX() -> _Image {
-        fx(self) { $0._flipX() }
+        fx(self) { $0.pixFlipX() }
     }
     
     func fxFlipY() -> _Image {
-        fx(self) { $0._flipY() }
+        fx(self) { $0.pixFlipY() }
     }
     
     func fxFlopLeft() -> _Image {
-        fx(self) { $0._flopLeft() }
+        fx(self) { $0.pixFlopLeft() }
     }
     
     func fxFlopRight() -> _Image {
-        fx(self) { $0._flopRight() }
+        fx(self) { $0.pixFlopRight() }
     }
-    
 }

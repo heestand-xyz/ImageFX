@@ -13,19 +13,11 @@ let package = Package(
         .library(name: "ImageFX", targets: ["ImageFX"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/hexagons/LiveValues.git", from: "1.1.7"),
-        .package(url: "https://github.com/hexagons/RenderKit.git", from: "0.3.9"),
-        .package(url: "https://github.com/hexagons/PixelKit.git", from: "1.0.2"),
-//        .package(path: "~/Code/Frameworks/Production/LiveValues"),
-//        .package(path: "~/Code/Frameworks/Production/RenderKit"),
-//        .package(path: "~/Code/Frameworks/Production/PixelKit"),
+        .package(url: "https://github.com/heestand-xyz/PixelKit", .branch("lite")),
+        .package(url: "https://github.com/heestand-xyz/RenderKit", .branch("lite")),
+        .package(url: "https://github.com/heestand-xyz/PixelColor", from: "1.2.1"),
     ],
     targets: [
-        .target(name: "ImageFX",
-                dependencies: [
-                    "LiveValues",
-                    "RenderKit",
-                    "PixelKit",
-                ]),
+        .target(name: "ImageFX", dependencies: ["PixelKit", "PixelColor"]),
     ]
 )
