@@ -1,43 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "PixelColor",
-        "repositoryURL": "https://github.com/heestand-xyz/PixelColor",
-        "state": {
-          "branch": null,
-          "revision": "f2408f208c541a3463ced1a288235683dcf73ca8",
-          "version": "1.2.2"
-        }
-      },
-      {
-        "package": "PixelKit",
-        "repositoryURL": "https://github.com/heestand-xyz/PixelKit",
-        "state": {
-          "branch": null,
-          "revision": "a1e610c1ae93f0fed753c0ec76c4ef48a70a3589",
-          "version": "2.0.3"
-        }
-      },
-      {
-        "package": "RenderKit",
-        "repositoryURL": "https://github.com/heestand-xyz/RenderKit",
-        "state": {
-          "branch": null,
-          "revision": "e482aaf00752dc953c69d7fd63b8e809cdb78605",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "Resolution",
-        "repositoryURL": "https://github.com/heestand-xyz/Resolution",
-        "state": {
-          "branch": null,
-          "revision": "587be77040ec27fd0eb903ae189cd3b89518eea4",
-          "version": "1.0.2"
-        }
+  "pins" : [
+    {
+      "identity" : "asyncgraphics",
+      "kind" : "remoteSourceControl",
+      "location" : "http://github.com/heestand-xyz/AsyncGraphics",
+      "state" : {
+        "revision" : "cfb9dfbc0ec094084e4d9bd52a368c0fd8738994",
+        "version" : "2.0.5"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "coregraphicsextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heestand-xyz/CoreGraphicsExtensions",
+      "state" : {
+        "revision" : "10a0403455eff7b8217054960d6391c98c0dea37",
+        "version" : "1.7.2"
+      }
+    },
+    {
+      "identity" : "pixelcolor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heestand-xyz/PixelColor",
+      "state" : {
+        "revision" : "985d12c8339bc0ae08803a0abde32c2e4696c4ce",
+        "version" : "2.2.2"
+      }
+    },
+    {
+      "identity" : "spatialextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heestand-xyz/SpatialExtensions",
+      "state" : {
+        "revision" : "f2b83a6928847f8cc9fa792af5f7d003a34b33c9",
+        "version" : "0.1.2"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax",
+      "state" : {
+        "revision" : "64889f0c732f210a935a0ad7cda38f77f876262d",
+        "version" : "509.1.1"
+      }
+    },
+    {
+      "identity" : "texturemap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heestand-xyz/TextureMap",
+      "state" : {
+        "revision" : "f07a0127f59217933b9b89c2eda4dd26a2da701f",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "videoframes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heestand-xyz/VideoFrames",
+      "state" : {
+        "revision" : "3de476e958b765699eb2f98ca42336acfc262f49",
+        "version" : "1.1.1"
+      }
+    }
+  ],
+  "version" : 2
 }

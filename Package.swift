@@ -1,22 +1,36 @@
-// swift-tools-version:5.5
+// swift-tools-version: 5.9
 
 import PackageDescription
 
 let package = Package(
     name: "ImageFX",
     platforms: [
-        .iOS("15.0"),
-        .tvOS("15.0"),
-        .macOS("12.0"),
+        .iOS(.v16),
+        .macOS(.v13),
     ],
     products: [
-        .library(name: "ImageFX", targets: ["ImageFX"]),
+        .library(
+            name: "ImageFX",
+            targets: ["ImageFX"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/heestand-xyz/PixelKit", from: "2.0.3"),
-        .package(url: "https://github.com/heestand-xyz/PixelColor", from: "1.2.1"),
+        .package(
+            url: "http://github.com/heestand-xyz/AsyncGraphics",
+            from: "2.0.5"
+        ),
+        .package(
+            url: "https://github.com/heestand-xyz/PixelColor",
+            from: "2.2.2"
+        ),
     ],
     targets: [
-        .target(name: "ImageFX", dependencies: ["PixelKit", "PixelColor"]),
+        .target(
+            name: "ImageFX",
+            dependencies: [
+                "AsyncGraphics",
+                "PixelColor",
+            ]
+        ),
     ]
 )
